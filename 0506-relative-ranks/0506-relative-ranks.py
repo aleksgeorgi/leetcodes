@@ -1,35 +1,29 @@
 class Solution:
     def findRelativeRanks(self, score: List[int]) -> List[str]:
-        '''
-        sort the score list
-        create a placements array 
-        store the score list and placements into a hashmap (dictionary)
-        read the original input and lookup placement 
-        '''
+        # using a max heap 
+        N = len(score)
         
-        #sort the score list 
-        scores_asc = sorted(score)
-        #reverse the list 
-        scores_desc = scores_asc[::-1]
+        # create a heap of pairs (score, index)
+        heap = []
+        for index, score in enumerate(score):
+            heapq.heappush(heap, (-score, index))
         
-        placements = ["Gold Medal", "Silver Medal", "Bronze Medal"]
-        if len(score) > 3:
-            for i in range(3, len(score)):
-                placements.append(str(i+1))
-                
-        # add the scores and placements to a dictionary 
-        score_map = {}
-        for i in range(len(scores_desc)):
-            score_map[scores_desc[i]] = placements[i]
+        # assign the rank to the athletes 
+        rank = [0] * N # premake the list so we can index into it
+        place = 1
+        while heap:
+            # get the original index from the heap element and place it into the list index 
+            original_index = heapq.heappop(heap)[1] # the 1 index contains the original index, 0 is the score
+            if place == 1:
+                rank[original_index] = "Gold Medal"
+            elif place == 2:
+                rank[original_index] = "Silver Medal"
+            elif place == 3:
+                rank[original_index] = "Bronze Medal"
+            else:
+                rank[original_index] = str(place)
+            place += 1
             
-        # iterate through original scores and append the ranking 
-        answer = []
-        for i in range(len(score)):
-            answer.append(score_map.get(score[i]))
-            
-        return answer
-        
-        
-            
+        return rank
 
         
