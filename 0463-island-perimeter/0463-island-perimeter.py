@@ -45,21 +45,3 @@ class Solution:
                             
                     
         return perimeter
-                    
-            
-        
-        '''
-        1. look at a cell 
-            if it's a 1, it's land 
-                look up, down, left, right
-                and if it is a boundary or 0, increment the perimeter 
-            else its water, keep going 
-        2. return the perimeter total 
-        
-        '''
-        
-        
-            
-            
-        
-        return 0 
