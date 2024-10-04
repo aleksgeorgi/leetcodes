@@ -1,46 +1,18 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        numProv = len(isConnected[0])
-        uf = UnionFind(numProv)
+    def findCircleNum(self, isConnected):
+        n = len(isConnected)
+        numberOfComponents = 0
+        visit = [False] * n
 
-        for row in range(len(isConnected[0])):
-            for col in range(len(isConnected[row])):
-                if isConnected[row][col] == 1 and uf.find(row)!= uf.find(col): # if we are merging them anew
-                    numProv -=1 
-                    uf.union(row,col)
+        for i in range(n):
+            if not visit[i]:
+                numberOfComponents += 1
+                self.dfs(i, isConnected, visit) # pass in the data struct to be shared
+
+        return numberOfComponents
     
-        print(uf.rank)
-        return numProv
-    
-class UnionFind:
-    def __init__(self, size):
-        self.root = [i for i in range(size)]
-        self.rank = [1]*size
-        
-    def find(self, x):
-        if x == self.root[x]:
-            return x
-        self.root[x] = self.find(self.root[x]) # path compression
-        return self.root[x]
-    
-    def union(self, x, y):  
-        rootX = self.find(x)
-        rootY = self.find(y)
-        
-        is_merged = False
-        if rootX == rootY:
-            return is_merged # return false 
-        
-        is_merged = True
-        
-        if self.root[rootX] > self.root[rootY]:
-            self.root[rootY] = rootX
-        elif self.root[rootX] < self.root[rootY]:
-            self.root[rootX] = rootY
-        else:
-            self.root[rootX] = rootY
-            self.rank[rootY] += 1
-        
-        return is_merged
-            
-        
+    def dfs(self, node, isConnected, visit):
+        visit[node] = True
+        for i in range(len(isConnected)):
+            if isConnected[node][i] == 1 and not visit[i]:
+                self.dfs(i, isConnected, visit) # recursive call, pass in same data struct
