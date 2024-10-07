@@ -6,22 +6,8 @@
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
         
-        if head.next is None:
-            return head
-        
-        nodeCount = 1 
-        dummyHead = head
-        
-        while head.next != None:
-            head = head.next
-            nodeCount += 1
-            
-        # get the middle "index"    
-        nodeCount = nodeCount // 2
-        
-        while nodeCount > 0:
-            nodeCount -= 1
-            dummyHead = dummyHead.next
-        
-        return dummyHead
+        arr=[head]
+        while arr[-1].next:
+            arr.append(arr[-1].next)
+        return arr[len(arr)//2]
         
