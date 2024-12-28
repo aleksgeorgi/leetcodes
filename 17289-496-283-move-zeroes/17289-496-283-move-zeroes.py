@@ -3,11 +3,6 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        def _swap(arr, l, r):
-            temp = arr[l]
-            arr[l] = arr[r]
-            arr[r] = temp
-
         if len(nums) > 1:
             l = 0
             r = l+1
@@ -17,7 +12,7 @@ class Solution:
                     while r < len(nums) and nums[r]==0:
                         r += 1
                     if r < len(nums):
-                        _swap(nums, l, r)
+                        nums[l], nums[r] = nums[r], nums[l]
                 l += 1
                 r = l+1
             
