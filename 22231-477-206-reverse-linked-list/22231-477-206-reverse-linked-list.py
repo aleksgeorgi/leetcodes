@@ -8,16 +8,15 @@ class Solution:
         if not head:
             return head
 
-        revList = [head.val]
-        currNode = head
+        prev = None # keep track of prev node for reversing the list 
+        curr = head 
 
-        while currNode.next:
-            currNode = currNode.next
-            revList.insert(0, currNode.val)
+        while curr:
+            next_temp = curr.next
+            curr.next = prev # reverse the pointer
+            prev = curr # update the new previous node 
+            curr = next_temp # terminates when null
 
-        currNode = head
-        for i in range(len(revList)):
-            currNode.val = revList[i]
-            currNode = currNode.next
-        return head
+        return prev
+
         
