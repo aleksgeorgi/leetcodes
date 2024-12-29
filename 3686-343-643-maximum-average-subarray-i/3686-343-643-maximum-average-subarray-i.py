@@ -7,4 +7,4 @@ class Solution:
             currSum += nums[i] - nums[i-k] # update the sum with sliding window
             maxSum = max(maxSum, currSum)
 
-        return maxSum/k
+        return maxSum/k 
