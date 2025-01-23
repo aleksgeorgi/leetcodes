@@ -1,14 +1,14 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # table for calculating max seen so far 
-        max_dp = [0]*len(nums)
-
-        max_dp[0] = nums[0] # initialize the first subarray sum as max
+        # optimized dp using kadane's algo 
+        curr_sum = nums[0] 
+        max_sum = nums[0]
         
         for i in range(1, len(nums)):
-            max_dp[i] = max(max_dp[i-1] + nums[i], nums[i])
+            curr_sum = max(curr_sum + nums[i], nums[i]) 
+            max_sum = max(curr_sum, max_sum)
 
-        return max(max_dp)
+        return max_sum
         
-        # time: O(n) bc single pass to init max_dp + single pass for loop = 2n ~ n
-        # space: O(n) bc max_dp = n 
+        # time: O(n) bc single pass for loop
+        # space: O(1) bc two variables 
